@@ -10,11 +10,28 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.github.meazza</groupId>
-  <artifactId>spring-mvc-annotation-demo</artifactId>
-  <version>0.0.1</version>
+  <artifactId>spring-boot-request-copy</artifactId>
+  <version>1.0</version>
   <packaging>jar</packaging>
-  <name>spring-mvc-annotation-demo</name>
-  <description>Demo project for Spring Boot</description>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Provide Spring MVC @RequestCopy annotation</description>
+  <url>https://github.com/meazza/spring-mvc-annotation-demo</url>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>denniszhou</name>
+      <email>zhouwei.hit@163.com</email>
+      <organization>iqiyi</organization>
+      <organizationUrl>http://www.iqiyi.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,6 +77,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:git:https://github.com/meazza/SpringBootRequestCopy.git</connection>
+    <developerConnection>scm:git:https://github.com/meazza/SpringBootRequestCopy.git</developerConnection>
+    <url>https://github.com/meazza/SpringBootRequestCopy</url>
+    <tag>v1.0</tag>
+  </scm>
 
 
 </project>
