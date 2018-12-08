@@ -79,9 +79,9 @@
   </build>
 
   <scm>
-    <connection>scm:git:https://github.com/meazza/SpringBootRequestCopy.git</connection>
-    <developerConnection>scm:git:https://github.com/meazza/SpringBootRequestCopy.git</developerConnection>
-    <url>https://github.com/meazza/SpringBootRequestCopy</url>
+    <connection>scm:git:https://github.com/meazza/spring-boot-request-copy</connection>
+    <developerConnection>scm:git:https://github.com/meazza/spring-boot-request-copy</developerConnection>
+    <url>https://github.com/meazza/spring-boot-request-copy</url>
     <tag>v1.0</tag>
   </scm>
 
