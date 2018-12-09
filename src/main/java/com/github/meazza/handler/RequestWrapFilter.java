@@ -30,7 +30,7 @@ public class RequestWrapFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response,
                        FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-    ServletRequest requestWrapper = new ExtRequestWrapper(httpServletRequest);
+    ServletRequest requestWrapper = new RequestBodyWrapper(httpServletRequest);
     chain.doFilter(requestWrapper, response);
   }
 }

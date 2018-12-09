@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class ExtHandlerInterceptor implements HandlerInterceptor {
+public class RequestHandlerInterceptor implements HandlerInterceptor {
 
   private RestTemplate restTemplate = new RestTemplate();
 
@@ -39,7 +39,7 @@ public class ExtHandlerInterceptor implements HandlerInterceptor {
           case "POST": {
             switch (request.getHeader("Content-Type")) {
               case "application/json": {
-                ExtRequestWrapper requestWrapper = new ExtRequestWrapper(request);
+                RequestBodyWrapper requestWrapper = new RequestBodyWrapper(request);
                 JSONObject jsonObject = JSON.parseObject(requestWrapper.getBody());
                 if (jsonObject != null) {
                   new Thread(() -> {

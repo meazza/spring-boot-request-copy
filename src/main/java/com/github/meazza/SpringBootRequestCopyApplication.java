@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class SpringMvcAnnotationDemoApplication {
+public class SpringBootRequestCopyApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SpringMvcAnnotationDemoApplication.class, args);
+    SpringApplication.run(SpringBootRequestCopyApplication.class, args);
   }
 
   @RequestMapping(value = "/")

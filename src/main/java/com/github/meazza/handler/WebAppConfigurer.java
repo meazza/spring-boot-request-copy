@@ -11,7 +11,7 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new ExtHandlerInterceptor()).addPathPatterns("/**");
+    registry.addInterceptor(new RequestHandlerInterceptor()).addPathPatterns("/**");
     super.addInterceptors(registry);
   }
 }

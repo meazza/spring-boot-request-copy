@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringMvcAnnotationDemoApplicationTests {
+public class SpringBootRequestCopyApplicationTests {
 
   @Test
   public void contextLoads() {

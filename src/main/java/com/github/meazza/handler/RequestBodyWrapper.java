@@ -11,11 +11,11 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-public class ExtRequestWrapper extends HttpServletRequestWrapper {
+public class RequestBodyWrapper extends HttpServletRequestWrapper {
 
   private final String body;
 
-  public ExtRequestWrapper(HttpServletRequest request) throws IOException {
+  public RequestBodyWrapper(HttpServletRequest request) throws IOException {
     super(request);
     StringBuilder stringBuilder = new StringBuilder();
     BufferedReader bufferedReader = null;
