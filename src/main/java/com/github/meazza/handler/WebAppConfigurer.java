@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@ConditionalOnProperty(name = "request-copy", havingValue = "on")
+@ConditionalOnProperty(name = "request-copy", havingValue = "true")
 public class WebAppConfigurer extends WebMvcConfigurerAdapter {
 
   @Override
