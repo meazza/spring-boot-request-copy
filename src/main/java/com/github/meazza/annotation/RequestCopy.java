@@ -1,4 +1,4 @@
-package com.example.demo.handler;
+package com.github.meazza.annotation;
 
 
 import java.lang.annotation.ElementType;

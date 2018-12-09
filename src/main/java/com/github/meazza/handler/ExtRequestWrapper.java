@@ -1,4 +1,4 @@
-package com.example.demo.handler;
+package com.github.meazza.handler;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
