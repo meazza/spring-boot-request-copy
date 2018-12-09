@@ -1,7 +1,6 @@
 package com.github.meazza;
 
 import com.github.meazza.annotation.RequestCopy;
-import lombok.Data;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,12 +41,5 @@ public class SpringBootRequestCopyApplication {
   public String helloTest(@RequestBody PostBody postBody) {
     System.out.println("hello test, " + postBody);
     return "hello test, " + postBody;
-  }
-
-  @Data
-  private class PostBody {
-
-    private Long id;
-    private String name;
   }
 }

@@ -4,16 +4,20 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.meazza.annotation.RequestCopy;
 import java.lang.reflect.Method;
-import java.util.Optional;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+@Slf4j
 public class RequestHandlerInterceptor implements HandlerInterceptor {
 
+  private static final Logger logger = LoggerFactory.getLogger(RequestHandlerInterceptor.class);
   private RestTemplate restTemplate = new RestTemplate();
 
   @Override
@@ -29,10 +33,9 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
         switch (request.getMethod()) {
           case "GET": {
             new Thread(() -> {
-              String result = restTemplate.getForObject(
-                  url + "?" + Optional.ofNullable(request.getQueryString()).orElse(""),
-                  String.class);
-              System.out.println(result);
+              String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
+              String result = restTemplate.getForObject(fullUrl, String.class);
+              logger.info("Send copied GET request to url: {}, and receive response: {}", fullUrl, result);
             }).run();
             break;
           }
@@ -43,10 +46,10 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
                 JSONObject jsonObject = JSON.parseObject(requestWrapper.getBody());
                 if (jsonObject != null) {
                   new Thread(() -> {
-                    String result = restTemplate.postForObject(
-                        url + "?" + Optional.ofNullable(request.getQueryString()).orElse(""),
-                        jsonObject, String.class);
-                    System.out.println(result);
+                    String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
+                    String result = restTemplate.postForObject(fullUrl, jsonObject, String.class);
+                    logger.info("Send copied POST request to url: {}, body: {}, and receive response: {}", fullUrl,
+                        jsonObject, result);
                   }).run();
                 }
                 break;
