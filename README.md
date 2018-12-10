@@ -40,7 +40,7 @@ Now you can add @RequestCopy annotation on the method that you want the requests
 // This request is copied to url: http://localhost:8080/test by the ratio of 5%
 @RequestMapping(value = "/")
 @RequestCopy(url = "http://localhost:8080/test", ratio = 0.05F)
-  public String hello(@RequestParam(defaultValue = "nobody") String name) {
+public String hello(@RequestParam(defaultValue = "nobody") String name) {
   System.out.println("hello, " + name);
   return "hello, " + name;
 }
