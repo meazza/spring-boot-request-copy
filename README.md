@@ -63,7 +63,7 @@ You can test the effects in this project, follow the steps:
 ```text
 2018-12-10 09:46:51.768  INFO 10196 --- [nio-8080-exec-7] c.g.m.handler.RequestHandlerInterceptor  : Send copied GET request to url: http://localhost:8080/test?name=meazza, and receive response: hello test, meazza
 ```
-* Send a POST(json) request: http://localhost:8080/post, and the log shows that this request is copied and send to http://localhost:8080/post/test
+* Send a POST(json) request: http://localhost:8080/post, and the log shows that this request is copied and send to http://localhost:8080/test/post
 ```text
 2018-12-10 09:48:15.747  INFO 10196 --- [nio-8080-exec-3] c.g.m.handler.RequestHandlerInterceptor  : Send copied POST request to url: http://localhost:8080/test/post, body: {"name":"meazza","id":1}, and receive response: hello test, PostBody(id=1, name=meazza)
 
