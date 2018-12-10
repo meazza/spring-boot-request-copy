@@ -28,7 +28,7 @@ public class AnnotationTestApplication {
 }
 ```
 
-Now you can add @RequestCopy annotation on the method that you want the requests received by it to be copied
+Now you can add @RequestCopy annotation on the method that you want the requests received by it to be copied.
 ```java
 @RequestMapping(value = "/")
 @RequestCopy(url = "http://localhost:8080/test", ratio = 1F)
@@ -44,7 +44,7 @@ All GET requests and POST requests whose headers include "Content-Type:applicati
 
 ### Testing the effects
 
-To clone this whole project, you could test the effects directly by executing command:
+After cloning this whole project, you could test the effects directly by executing command:
 ```text
 mvn spring-boot:run
 ```
