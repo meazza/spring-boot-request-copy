@@ -28,7 +28,7 @@ public class AnnotationTestApplication {
 }
 ```
 
-Now you can add @RequestCopy annotation on the methods that you want the requests received by it to be copied
+Now you can add @RequestCopy annotation on the method that you want the requests received by it to be copied
 ```java
 @RequestMapping(value = "/")
 @RequestCopy(url = "http://localhost:8080/test", ratio = 1F)
