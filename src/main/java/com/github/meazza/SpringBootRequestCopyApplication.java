@@ -31,13 +31,13 @@ public class SpringBootRequestCopyApplication {
   }
 
   @RequestMapping(value = "/post", method = RequestMethod.POST)
-  @RequestCopy(url = "http://localhost:8080/post/test", ratio = 1F)
+  @RequestCopy(url = "http://localhost:8080/test", ratio = 1F)
   public String hello(@RequestBody PostBody postBody) {
     System.out.println("hello, " + postBody);
     return "hello, " + postBody;
   }
 
-  @RequestMapping(value = "/post/test", method = RequestMethod.POST)
+  @RequestMapping(value = "/test/post", method = RequestMethod.POST)
   public String helloTest(@RequestBody PostBody postBody) {
     System.out.println("hello test, " + postBody);
     return "hello test, " + postBody;

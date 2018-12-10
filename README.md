@@ -8,11 +8,18 @@ If these tools could not be used in your Spring Boot project for some reason, pl
 
 First, add Maven dependencies in your project
 ```xml
-<dependency>
-  <groupId>com.github.meazza</groupId>
-  <artifactId>spring-boot-request-copy</artifactId>
-  <version>1.0.4</version>
-</dependency>
+<dependencies>
+  <dependency>
+    <groupId>com.github.meazza</groupId>
+    <artifactId>spring-boot-request-copy</artifactId>
+    <version>1.0.5.RELEASE</version>
+  </dependency>
+  <dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.54</version>
+  </dependency>
+</dependencies>
 ```
 
 and then, import configuration classes in main class.
@@ -45,10 +52,12 @@ All GET requests and POST requests whose headers include "Content-Type:applicati
 
 ### Testing the effects
 
-After cloning this whole project, you could test the effects directly by executing command:
-```text
-mvn spring-boot:run
-```
+You can test the effects in this project, follow the steps:
+1. Clone the whole project
+2. Modify this parameter in pom.xml: 
+```<spring-boot-maven-plugin.skip>false</spring-boot-maven-plugin.skip>```
+3. Executing command:
+```mvn spring-boot:run```
 
 * Send a GET request: http://localhost:8080?name=meazza, and the log shows that this request is copied and send to http://localhost:8080/test:
 ```text
@@ -56,6 +65,6 @@ mvn spring-boot:run
 ```
 * Send a POST(json) request: http://localhost:8080/post, and the log shows that this request is copied and send to http://localhost:8080/post/test
 ```text
-2018-12-10 09:48:15.747  INFO 10196 --- [nio-8080-exec-3] c.g.m.handler.RequestHandlerInterceptor  : Send copied POST request to url: http://localhost:8080/post/test, body: {"name":"meazza","id":1}, and receive response: hello test, PostBody(id=1, name=meazza)
+2018-12-10 09:48:15.747  INFO 10196 --- [nio-8080-exec-3] c.g.m.handler.RequestHandlerInterceptor  : Send copied POST request to url: http://localhost:8080/test/post, body: {"name":"meazza","id":1}, and receive response: hello test, PostBody(id=1, name=meazza)
 
 ```

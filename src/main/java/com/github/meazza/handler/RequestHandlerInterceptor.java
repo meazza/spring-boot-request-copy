@@ -3,17 +3,21 @@ package com.github.meazza.handler;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.meazza.annotation.RequestCopy;
-import java.lang.reflect.Method;
-import java.util.Random;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.lang.reflect.Method;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RequestHandlerInterceptor implements HandlerInterceptor {
@@ -69,13 +73,13 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
 
   @Override
   public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
-      ModelAndView modelAndView) throws Exception {
+                         ModelAndView modelAndView) throws Exception {
 
   }
 
   @Override
   public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
-      Exception e) throws Exception {
+                              Exception e) throws Exception {
 
   }
 }

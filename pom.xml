@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.github.meazza</groupId>
   <artifactId>spring-boot-request-copy</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.5.RELEASE</version>
   <packaging>jar</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Provide Spring MVC @RequestCopy annotation</description>
@@ -34,6 +34,7 @@
   </developers>
 
   <properties>
+    <spring-boot-maven-plugin.skip>true</spring-boot-maven-plugin.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
@@ -71,7 +72,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
+          <skip>${spring-boot-maven-plugin.skip}</skip>
         </configuration>
       </plugin>
       <plugin>
@@ -136,9 +137,10 @@
 
   <scm>
     <connection>scm:git:https://github.com/meazza/spring-boot-request-copy</connection>
-    <developerConnection>scm:git:https://github.com/meazza/spring-boot-request-copy</developerConnection>
+    <developerConnection>scm:git:https://github.com/meazza/spring-boot-request-copy
+    </developerConnection>
     <url>https://github.com/meazza/spring-boot-request-copy</url>
-    <tag>v1.0.5</tag>
+    <tag>v1.0.5.RELEASE</tag>
   </scm>
 
   <distributionManagement>
