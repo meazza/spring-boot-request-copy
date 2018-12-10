@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 public class RequestHandlerInterceptor implements HandlerInterceptor {
@@ -23,11 +24,14 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
+    if (!(handler instanceof HandlerMethod)) {
+      return true;
+    }
     HandlerMethod handlerMethod = (HandlerMethod) handler;
     Method method = handlerMethod.getMethod();
     RequestCopy requestCopy = method.getAnnotation(RequestCopy.class);
     if (requestCopy != null) {
-      String url = requestCopy.url();
+      String url = requestCopy.url() + request.getRequestURI();
       float ratio = requestCopy.ratio();
       if (new Random().nextFloat() <= ratio) {
         switch (request.getMethod()) {
@@ -36,7 +40,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
               String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
               String result = restTemplate.getForObject(fullUrl, String.class);
               logger.info("Send copied GET request to url: {}, and receive response: {}", fullUrl, result);
-            }).run();
+            }).start();
             break;
           }
           case "POST": {
@@ -50,7 +54,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
                     String result = restTemplate.postForObject(fullUrl, jsonObject, String.class);
                     logger.info("Send copied POST request to url: {}, body: {}, and receive response: {}", fullUrl,
                         jsonObject, result);
-                  }).run();
+                  }).start();
                 }
                 break;
               }
@@ -61,5 +65,17 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
       }
     }
     return true;
+  }
+
+  @Override
+  public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
+      ModelAndView modelAndView) throws Exception {
+
+  }
+
+  @Override
+  public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,
+      Exception e) throws Exception {
+
   }
 }
