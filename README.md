@@ -1,27 +1,60 @@
-本项目演示如何实现将发送给Controller的请求，以一定的比例发送给另一个URL地址，支持GET和POST方法（请求体以JSON方式提交）。
+### Introduction
 
-在需要进行请求复制转发的Controller方法上添加如下注解：
+This project is help to implement copying Spring mvc controller request to the other address by a given ratio.
+The Traditional method to achieve this is using tools like gor or tcpcopy.
+If these tools could not be used in your Spring Boot project for some reason, please read the following context and it can help you.
+
+### How to use it
+
+First, add Maven dependencies in your project
+```xml
+<dependency>
+  <groupId>com.github.meazza</groupId>
+  <artifactId>spring-boot-request-copy</artifactId>
+  <version>1.0.4</version>
+</dependency>
+```
+
+and then, import configuration classes in main class.
 ```java
-@RequestCopy(url = "http://localhost:8080/post/test", ratio = 0.05F)
+@SpringBootApplication
+@RestController
+@Import({WebAppConfigurer.class, RequestWrapFilter.class})
+public class AnnotationTestApplication { 
+ 
+  public static void main(String[] args) { 
+    SpringApplication.run(AnnotationTestApplication.class, args); 
+  }
+}
 ```
 
-这里代表将该方法的请求，以0.05（5%）的比例，发送到http://localhost:8080/post/test
-1. 如果是GET方法，URL的参数也会同样发送到该地址；
-2. 如果是POST方法，除URL的参数外，RequestBody的JSON对象也同样会发送。
+Now you can add @RequestCopy annotation on the methods that you want the requests received by it to be copied
+```java
+@RequestMapping(value = "/")
+@RequestCopy(url = "http://localhost:8080/test", ratio = 1F)
+  public String hello(@RequestParam(defaultValue = "nobody") String name) {
+  System.out.println("hello, " + name);
+  return "hello, " + name;
+}
+``` 
 
-在application.yml配置文件中，通过增加配置项：
+### What can be supported
+
+All GET requests and POST requests whose headers include "Content-Type:application/json"
+
+### Testing the effects
+
+To clone this whole project, you could test the effects directly by executing command:
+```text
+mvn spring-boot:run
 ```
-request-copy: on
+
+* Send a GET request: http://localhost:8080?name=meazza, and the log shows that this request is copied and send to http://localhost:8080/test:
+```text
+2018-12-10 09:46:51.768  INFO 10196 --- [nio-8080-exec-7] c.g.m.handler.RequestHandlerInterceptor  : Send copied GET request to url: http://localhost:8080/test?name=meazza, and receive response: hello test, meazza
 ```
-打开请求复制；如果不写此配置项或为其他值，用@RequestCopy修饰的方法不会进行请求复制。
+* Send a POST(json) request: http://localhost:8080/post, and the log shows that this request is copied and send to http://localhost:8080/post/test
+```text
+2018-12-10 09:48:15.747  INFO 10196 --- [nio-8080-exec-3] c.g.m.handler.RequestHandlerInterceptor  : Send copied POST request to url: http://localhost:8080/post/test, body: {"name":"meazza","id":1}, and receive response: hello test, PostBody(id=1, name=meazza)
 
-总结：通过SpringMVC拦截器+注解的方式实现了GET和POST方法的1：1原样复制发送，并使用新线程执行，原请求继续执行原来的处理流程。
-
-
-
----
-
-**示例:**
-
-1. GET: http://localhost:8080 ，该请求会复制发送到http://localhost:8080/test
-2. POST: http://localhost:8080/post, {"id":123, "name":"jack"}，该请求会复制发送到http://localhost:8080/post/test
+```
