@@ -15,7 +15,7 @@
   <packaging>jar</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Provide Spring MVC @RequestCopy annotation</description>
-  <url>https://github.com/meazza/spring-mvc-annotation-demo</url>
+  <url>https://github.com/meazza/spring-boot-request-copy</url>
 
   <licenses>
     <license>
@@ -26,7 +26,7 @@
 
   <developers>
     <developer>
-      <name>denniszhou</name>
+      <name>meazza</name>
       <email>zhouwei.hit@163.com</email>
       <organization>iqiyi</organization>
       <organizationUrl>http://www.iqiyi.com</organizationUrl>
