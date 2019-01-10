@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.github.meazza</groupId>
   <artifactId>spring-boot-request-copy</artifactId>
-  <version>1.0.5.RELEASE</version>
+  <version>1.0.6.RELEASE</version>
   <packaging>jar</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Provide Spring MVC @RequestCopy annotation</description>

@@ -4,12 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.meazza.annotation.RequestCopy;
 import java.lang.reflect.Method;
+import java.util.Enumeration;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -42,7 +47,9 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
         case "GET": {
           new Thread(() -> {
             String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
-            String result = restTemplate.getForObject(fullUrl, String.class);
+            ResponseEntity<String> responseEntity = restTemplate
+                .exchange(fullUrl, HttpMethod.GET, new HttpEntity(createHttpHeaders(request)), String.class);
+            String result = responseEntity.getBody();
             logger.info("Send copied GET request to url: {}, and receive response: {}", fullUrl, result);
           }).start();
           break;
@@ -55,7 +62,12 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
               if (jsonObject != null) {
                 new Thread(() -> {
                   String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
-                  String result = restTemplate.postForObject(fullUrl, jsonObject, String.class);
+                  HttpHeaders httpHeaders = createHttpHeaders(request);
+                  System.out.println("header: " + httpHeaders);
+                  ResponseEntity<String> responseEntity = restTemplate
+                      .exchange(fullUrl, HttpMethod.POST, new HttpEntity<>(jsonObject.toString(), httpHeaders),
+                          String.class);
+                  String result = responseEntity.getBody();
                   logger.info("Send copied POST request to url: {}, body: {}, and receive response: {}", fullUrl,
                       jsonObject, result);
                 }).start();
@@ -68,6 +80,16 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
       }
     }
     return true;
+  }
+
+  private HttpHeaders createHttpHeaders(HttpServletRequest request) {
+    HttpHeaders headers = new HttpHeaders();
+    Enumeration<String> headerNames = request.getHeaderNames();
+    while (headerNames.hasMoreElements()) {
+      String headerName = headerNames.nextElement();
+      headers.set(headerName, request.getHeader(headerName));
+    }
+    return headers;
   }
 
   @Override
