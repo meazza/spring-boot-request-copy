@@ -63,7 +63,6 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
                 new Thread(() -> {
                   String fullUrl = url + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
                   HttpHeaders httpHeaders = createHttpHeaders(request);
-                  System.out.println("header: " + httpHeaders);
                   ResponseEntity<String> responseEntity = restTemplate
                       .exchange(fullUrl, HttpMethod.POST, new HttpEntity<>(jsonObject.toString(), httpHeaders),
                           String.class);
